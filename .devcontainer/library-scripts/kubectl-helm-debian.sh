@@ -13,10 +13,8 @@ set -e
 
 KUBECTL_VERSION="${1:-"latest"}"
 HELM_VERSION="${2:-"latest"}"
-MINIKUBE_VERSION="${3:-"none"}" # latest is also valid
 KUBECTL_SHA256="${4:-"automatic"}"
 HELM_SHA256="${5:-"automatic"}"
-MINIKUBE_SHA256="${6:-"automatic"}"
 
 HELM_GPG_KEYS_URI="https://raw.githubusercontent.com/helm/helm/main/KEYS"
 GPG_KEY_SERVERS="keyserver hkp://keyserver.ubuntu.com:80
@@ -190,30 +188,6 @@ rm -rf /tmp/helm
 if ! type helm > /dev/null 2>&1; then
     echo '(!) Helm installation failed!'
     exit 1
-fi
-
-# Install Minikube, verify checksum
-if [ "${MINIKUBE_VERSION}" != "none" ]; then
-    echo "Downloading minikube..."
-    if [ "${MINIKUBE_VERSION}" = "latest" ] || [ "${MINIKUBE_VERSION}" = "lts" ] || [ "${MINIKUBE_VERSION}" = "current" ] || [ "${MINIKUBE_VERSION}" = "stable" ]; then
-        MINIKUBE_VERSION="latest"
-    else
-        find_version_from_git_tags MINIKUBE_VERSION https://github.com/kubernetes/minikube
-        if [ "${MINIKUBE_VERSION::1}" != "v" ]; then
-            MINIKUBE_VERSION="v${MINIKUBE_VERSION}"
-        fi
-    fi
-    # latest is also valid in the download URLs 
-    curl -sSL -o /usr/local/bin/minikube "https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-linux-${architecture}"    
-    chmod 0755 /usr/local/bin/minikube
-    if [ "$MINIKUBE_SHA256" = "automatic" ]; then
-        MINIKUBE_SHA256="$(curl -sSL "https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-linux-${architecture}.sha256")"
-    fi
-    ([ "${MINIKUBE_SHA256}" = "dev-mode" ] || (echo "${MINIKUBE_SHA256} */usr/local/bin/minikube" | sha256sum -c -))
-    if ! type minikube > /dev/null 2>&1; then
-        echo '(!) minikube installation failed!'
-        exit 1
-    fi
 fi
 
 if ! type docker > /dev/null 2>&1; then
