@@ -29,7 +29,8 @@
 	"extensions": [
 		"ms-azuretools.vscode-docker",
 		"ms-kubernetes-tools.vscode-kubernetes-tools",
-		"/var/lib/vscode-gitops-tools.vsix"
+		"/var/lib/vscode-gitops-tools.vsix",
+		"github.vscode-pull-request-github"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -47,8 +48,7 @@
 		"docker-in-docker": "latest",
 		"kubectl-helm-minikube": "latest",
 		"git": "os-provided",
-		"github-cli": "latest",
-		"golang": "latest"
+		"github-cli": "latest"
 	}
 	// "postCreateCommand": "kubectl version",
 }
