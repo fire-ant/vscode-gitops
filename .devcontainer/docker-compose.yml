@@ -1,0 +1,21 @@
+version: "3"
+services:
+  gitops:
+    build: .
+    volumes:
+      # Update this to wherever you want VS Code to mount the folder of your project
+      - ../:/workspace:delegated
+      - /var/run/docker.sock:/var/run/docker-host.sock:delegated
+      - ~/.ssh:/root/.ssh:delegated
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks: 
+      - wkp-kind
+    env_file: .env
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+networks:
+  wkp-kind:
+    name: vscode-gitops
+    driver: bridge
