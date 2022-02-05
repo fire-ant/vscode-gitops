@@ -11,11 +11,12 @@ ARG USE_MOBY="true"
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+ARG KUBECTL_VERSION="1.23.3"
 # Install needed packages and setup non-root user. Use a separate RUN statement to add your own dependencies.
 COPY library-scripts/*.sh /tmp/library-scripts/
 RUN apt-get update && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     && /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "${USE_MOBY}" \
-    && /bin/bash /tmp/library-scripts/kubectl-helm-debian.sh "latest" "latest" "none" \
+    && /bin/bash /tmp/library-scripts/kubectl-helm-debian.sh ${KUBECTL_VERSION} "latest" "none" \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
 # Script copies localhost's ~/.kube/config file into the container and swaps out 
@@ -59,7 +60,7 @@ RUN wget https://github.com/kubernetes-sigs/kind/releases/download/v${KIV}/kind-
     && mv ./kind-linux-amd64 ${INSTALL_DIR}/kind
 
 # install clusterctl
-ARG CC="1.0.2"
+ARG CC="1.1.0"
 RUN curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v${CC}/clusterctl-linux-amd64 -o clusterctl \
     && chmod +x ./clusterctl \
     && mv ./clusterctl ${INSTALL_DIR}/clusterctl 
@@ -74,5 +75,9 @@ RUN curl -sL "https://github.com/kubernetes-sigs/kustomize/releases/download/kus
     && rm -rf /tmp/kustomize
 
 #  install kustomizer
-ARG KKV="2.0.0"
-RUN curl -s https://kustomizer.dev/install.sh | bash -s ${KKV}
+# ARG KKV="2.0.0"
+# RUN curl -s https://kustomizer.dev/install.sh | bash -s ${KKV}
+
+#  install k3d
+ARG K3V="5.0.0"
+RUN wget -q -O - https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v${K3V} bash

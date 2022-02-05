@@ -12,6 +12,58 @@
       "label": "kind delete cluster",
       "type": "shell",
       "command": "kind delete clusters vscode-gitops"
-    }
+    },
+    {
+      "label": "k3d create cluster",
+      "type": "shell",
+      "command": "./k3d/cluster_up.sh",
+    },
+    {
+      "label": "k3d delete cluster",
+      "type": "shell",
+      "command": "k3d cluster delete vscode-gitops"
+    },
+    {
+      "label": "k3d install calico",
+      "type": "shell",
+      "command": "curl -sSL https://k3d.io/v5.3.0/usage/advanced/calico.yaml | kubectl apply -f -"
+    },
+    {
+      "label": "k3d install cert-manager",
+      "type": "shell",
+      "command": "curl -sSL https://github.com/cert-manager/cert-manager/releases/download/v1.5.3/cert-manager.yaml | kubectl apply -f -"
+    },
+    {
+      "label": "gitops enable",
+      "type": "shell",
+      "command": "flux install --context=k3d-vscode-gitops"
+    },
+    {
+      "label": "clusterctl init",
+      "type": "shell",
+      "command": "clusterctl init"
+    },
+    {
+      "label": "clusterctl CAPD",
+      "type": "shell",
+      "command": "clusterctl init --infrastructure docker"
+    },
+    {
+      "label": "k3d up CAPI/CAPD",
+      "type": "shell",
+      "command": "kubectl get no; kubectl get po --all-namespaces",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      "dependsOn": [
+        "k3d delete cluster",
+        "k3d create cluster",
+        "k3d install calico",
+        "k3d install cert-manager",
+        "clusterctl init",
+        "clusterctl CAPD",
+      ],
+      "dependsOrder": "sequence"
+    },
   ]
 }

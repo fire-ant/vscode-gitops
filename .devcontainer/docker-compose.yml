@@ -11,11 +11,11 @@ services:
       - NET_ADMIN
       - NET_RAW
     networks: 
-      - wkp-kind
+      - vscode-gitops
     env_file: .env
     command: /bin/sh -c "while sleep 1000; do :; done"
 
 networks:
-  wkp-kind:
+  vscode-gitops:
     name: vscode-gitops
     driver: bridge
