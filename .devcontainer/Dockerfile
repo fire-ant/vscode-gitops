@@ -17,7 +17,9 @@ COPY library-scripts/*.sh /tmp/library-scripts/
 RUN apt-get update && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     && /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "${USE_MOBY}" \
     && /bin/bash /tmp/library-scripts/kubectl-helm-debian.sh ${KUBECTL_VERSION} "latest" "none" \
+    && /bin/bash /tmp/library-scripts/go-debian.sh "none" "/usr/local/go" "${GOPATH}" "${USERNAME}" "false" \ 
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
+
 
 # Script copies localhost's ~/.kube/config file into the container and swaps out 
 # localhost for host.docker.internal on bash/zsh start to keep them in sync.
@@ -32,8 +34,8 @@ ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
 
 # [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends make
 
 ARG INSTALL_DIR=/usr/local/bin
 # install flux-vscode, also configured for install in devcontainer.json
