@@ -9,13 +9,14 @@ services:
       - ~/.ssh:/root/.ssh:delegated
     cap_add:
       - NET_ADMIN
-      - NET_RAW
+      - NET_RAW  
+    # privileged: true 
     networks: 
-      - vscode-gitops
+      - kind
     env_file: .env
     command: /bin/sh -c "while sleep 1000; do :; done"
 
 networks:
-  vscode-gitops:
-    name: vscode-gitops
+  kind:
+    name: kind
     driver: bridge
