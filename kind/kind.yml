@@ -2,9 +2,49 @@
 ---
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+name: vscode-gitops
+# networking:
+#   kubeProxyMode: "none"
+# networking:
+#   kubeProxyMode: "none" 
+#   ipFamily: ipv4
+#   apiServerAddress: 127.0.0.1
 nodes:
-  # cant make multi node until v0.9.0 due to complications with docker provider/mac.
 - role: control-plane
-  image: kindest/node:v1.23.3
-- role: worker
-  image: kindest/node:v1.23.3
+  image: kindest/node:v1.22.4@sha256:ca3587e6e545a96c07bf82e2c46503d9ef86fc704f44c17577fca7bcabf5f978
+  extraMounts:
+    - hostPath: /var/run/docker.sock
+      containerPath: /var/run/docker.sock
+    - hostPath: /tmp/lib/docker
+      containerPath: /var/lib/docker
+  kubeadmConfigPatches:
+    - |
+      kind: InitConfiguration
+      nodeRegistration:
+        kubeletExtraArgs:
+          node-labels: "ingress-ready=true"
+  extraPortMappings:
+    - containerPort: 80
+      hostPort: 80
+      protocol: TCP
+      listenAddress: 127.0.0.1
+    - containerPort: 443
+      hostPort: 443
+      protocol: TCP
+      listenAddress: 127.0.0.1
+networking:
+  disableDefaultCNI: true
+  podSubnet: 192.168.0.0/16
+
+# nodes:
+# - role: control-plane
+#   kubeadmConfigPatches:
+#   - |
+#     apiVersion: kubelet.config.k8s.io/v1beta1
+#     kind: KubeletConfiguration
+#     imageGCHighThresholdPercent: 100
+#     evictionHard:
+#       memory.available:  "100Mi"
+#       nodefs.available:  "0%"
+#       nodefs.inodesFree: "0%"
+#       imagefs.available: "0%"

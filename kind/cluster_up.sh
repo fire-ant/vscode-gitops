@@ -6,7 +6,7 @@ export CLUSTER_NAME=vscode-gitops
 
 # cluster_up:
 
-kind create cluster --config=./kind/kind.yml --name $CLUSTER_NAME
+kind create cluster --config=./kind/kind.yml --name $CLUSTER_NAME --wait 10s # --verbosity 2 --retain
 
 # replace_loopback:
 sed -i "s/127.0.0.1.*/$(docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $CLUSTER_NAME-control-plane):6443/" ~/.kube/config 

@@ -1,11 +1,11 @@
 ---
 apiVersion: k3d.io/v1alpha3 
 kind: Simple 
-name: vscode-gitops 
+name: mgmt-lcl
 servers: 1
 agents: 1
 image: rancher/k3s:v1.23.3-k3s1 
-network: vscode-gitops 
+network: kind
 volumes: 
   - volume: /var/run/docker.sock:/var/run/docker.sock
     nodeFilters:

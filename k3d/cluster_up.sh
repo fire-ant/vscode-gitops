@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # set cluster name:
-export CLUSTER_NAME=vscode-gitops
+export CLUSTER_NAME=mgmt-lcl
 
 # cluster_up:
 
