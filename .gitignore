@@ -1,2 +1,3 @@
 cluster-api/*
 .devcontainer/.env
+infra/*
