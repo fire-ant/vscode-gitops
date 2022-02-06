@@ -1,5 +1,5 @@
 # Note: You can use any Debian/Ubuntu based image you want. 
-FROM mcr.microsoft.com/vscode/devcontainers/base:0-bullseye
+FROM mcr.microsoft.com/vscode/devcontainers/go:0-bullseye
 
 # Enable new "BUILDKIT" mode for Docker CLI
 ENV DOCKER_BUILDKIT=1
@@ -17,7 +17,7 @@ COPY library-scripts/*.sh /tmp/library-scripts/
 RUN apt-get update && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
     && /bin/bash /tmp/library-scripts/docker-debian.sh "true" "/var/run/docker-host.sock" "/var/run/docker.sock" "${USERNAME}" "${USE_MOBY}" \
     && /bin/bash /tmp/library-scripts/kubectl-helm-debian.sh ${KUBECTL_VERSION} "latest" "none" \
-    && /bin/bash /tmp/library-scripts/go-debian.sh "none" "/usr/local/go" "${GOPATH}" "${USERNAME}" "false" \ 
+    # && /bin/bash /tmp/library-scripts/go-debian.sh "none" "/usr/local/go" "${GOPATH}" "${USERNAME}" "false" \ 
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
 
@@ -35,7 +35,7 @@ CMD [ "sleep", "infinity" ]
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends make
+    && apt-get -y install --no-install-recommends make python
 
 ARG INSTALL_DIR=/usr/local/bin
 # install flux-vscode, also configured for install in devcontainer.json
@@ -56,7 +56,7 @@ RUN curl -s https://fluxcd.io/install.sh | bash -s ${FV} \
     && mv ${FV} /usr/local/bin/flux
 
 # install kind
-ARG KIV="0.11.1"
+ARG KIV="0.11.0"
 RUN wget https://github.com/kubernetes-sigs/kind/releases/download/v${KIV}/kind-linux-amd64 \
     && chmod +x ./kind-linux-amd64 \
     && mv ./kind-linux-amd64 ${INSTALL_DIR}/kind
