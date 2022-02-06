@@ -39,9 +39,12 @@
       "command": "flux check --pre; flux install --context=k3d-${CLUSTER_NAME}; kubectl get GitRepository -A -o json; kubectl get HelmRepository -A -o json; kubectl get Bucket -A -o json ;kubectl get HelmRelease -A -o json; kubectl get Kustomization -A -o json"
     },
     {
-      "label": "clusterctl init",
+      "label": "clusterctl init CAPD",
       "type": "shell",
-      "command": "clusterctl init"
+      "command": "./capd/init.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/provider"
+      },
     },
     {
       "label": "clusterctl setup CAPD",
@@ -52,12 +55,31 @@
       },
     },
     {
-      "label": "clusterctl deploy CAPD tenant",
+      "label": "clusterctl generate CAPD tenant",
       "type": "shell",
-      "command": "./capd/deploy.sh",
+      "command": "./capd/generate.sh",
       "options": {
         "cwd": "${workspaceFolder}/provider"
       },
+    },
+    {
+      "label": "clusterctl provision CAPD tenant",
+      "type": "shell",
+      "command": "./capd/provision.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/provider"
+      },
+      "presentation": {
+        "group": "groupA"
+      },
+    },
+    {
+      "label": "kubectl get m",
+      "type": "shell",
+      "command": "watch kubectl get machines",
+      "presentation": {
+        "group": "groupA"
+      }
     },
     {
       "label": "clusterctl CAPA",
@@ -75,7 +97,9 @@
         "k3d delete cluster",
         "k3d create cluster",
         "k3d install calico",
-        "k3d install cert-manager"
+        "k3d install cert-manager",
+        "clusterctl init CAPD",
+        "clusterctl setup CAPD"
       ],
       "dependsOrder": "sequence"
     },
