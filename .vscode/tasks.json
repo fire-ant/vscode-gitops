@@ -44,9 +44,20 @@
       "command": "clusterctl init"
     },
     {
-      "label": "clusterctl CAPD",
+      "label": "clusterctl setup CAPD",
       "type": "shell",
-      "command": "clusterctl init --infrastructure docker"
+      "command": "./capd/setup.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/provider"
+      },
+    },
+    {
+      "label": "clusterctl deploy CAPD tenant",
+      "type": "shell",
+      "command": "./capd/deploy.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/provider"
+      },
     },
     {
       "label": "clusterctl CAPA",
