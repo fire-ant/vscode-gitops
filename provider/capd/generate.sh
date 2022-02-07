@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #variables
-kube_version="1.23.3"
+kube_version="1.21.1"
 cluster_name="vscode-gitops"
 tenant_name="capd-tenant"
 target_ns="default"

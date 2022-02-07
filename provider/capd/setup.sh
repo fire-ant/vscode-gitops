@@ -6,6 +6,9 @@ local_repo_location="./cluster-api"
 default_branch="main"
 provider_version="v1.2.99"
 kube_version="1.23.3"
+clstrpref=~/.cluster-api/
+clstryaml=$clstrpref/clusterctl.yaml
+clstrset=clusterctl-settings.json
 
 
 #create the repository destination directory
@@ -40,9 +43,18 @@ cat > clusterctl-settings.json <<EOF
 EOF
 
 # use local repo overrides
-cat > ~/.cluster-api/clusterctl.yaml <<EOF
+mkdir -p $clstrpref
+rm -f $clstryaml
+cat > $clstryaml <<EOF 
 providers:
   - name: docker
     url: $HOME/.cluster-api/overrides/infrastructure-docker/latest/infrastructure-components.yaml
     type: InfrastructureProvider
+EOF
+
+rm -f $clstrset
+cat > $clstrset <<EOF 
+{
+  "providers": ["cluster-api","bootstrap-kubeadm","control-plane-kubeadm", "infrastructure-docker"]
+}
 EOF
