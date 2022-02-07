@@ -1,3 +1,5 @@
+cd infra/tenants
+
 # install calico
 curl https://projectcalico.docs.tigera.io/manifests/calico.yaml -O
 
