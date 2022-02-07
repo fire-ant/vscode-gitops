@@ -78,7 +78,7 @@
       "type": "shell",
       "command": "./capd/add-on.sh",
       "options": {
-        "cwd": "${workspaceFolder}/provider/infra/tenants"
+        "cwd": "${workspaceFolder}/provider"
       },
       "presentation": {
         "group": "groupA"
