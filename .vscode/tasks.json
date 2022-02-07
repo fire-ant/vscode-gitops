@@ -74,6 +74,17 @@
       },
     },
     {
+      "label": "CNI add-on CAPD tenant",
+      "type": "shell",
+      "command": "./capd/add-on.sh",
+      "options": {
+        "cwd": "${workspaceFolder}/provider/infra/tenants"
+      },
+      "presentation": {
+        "group": "groupA"
+      },
+    },
+    {
       "label": "kubectl get m",
       "type": "shell",
       "command": "watch kubectl get machines",
@@ -98,8 +109,8 @@
         "k3d create cluster",
         "k3d install calico",
         "k3d install cert-manager",
-        "clusterctl init CAPD",
-        "clusterctl setup CAPD"
+        "clusterctl setup CAPD",
+        "clusterctl init CAPD"
       ],
       "dependsOrder": "sequence"
     },
