@@ -3482,7 +3482,7 @@ spec:
         # This container installs the CNI binaries
         # and CNI network config file on each node.
         - name: install-cni
-          image: calico/cni:v3.22.0
+          image: calico/cni:v3.15.0
           command: ["/install-cni.sh"]
           env:
             # Name of the CNI config file to create.
@@ -3518,7 +3518,7 @@ spec:
         # Adds a Flex Volume Driver that creates a per-pod Unix Domain Socket to allow Dikastes
         # to communicate with Felix over the Policy Sync API.
         - name: flexvol-driver
-          image: calico/pod2daemon-flexvol:v3.22.0
+          image: calico/pod2daemon-flexvol:v3.15.0
           volumeMounts:
           - name: flexvol-driver-host
             mountPath: /host/driver
@@ -3751,4 +3751,5 @@ metadata:
 
 ---
 # Source: calico/templates/configure-canal.yaml
+
 

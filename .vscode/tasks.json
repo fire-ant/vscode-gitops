@@ -24,7 +24,7 @@
       "command": "k3d cluster delete ${CLUSTER_NAME}"
     },
     {
-      "label": "k3d install calico",
+      "label": "CNI install calico",
       "type": "shell",
       "command": "curl -sSL https://k3d.io/v5.3.0/usage/advanced/calico.yaml | kubectl apply -f -"
     },
