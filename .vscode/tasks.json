@@ -114,5 +114,20 @@
       ],
       "dependsOrder": "sequence"
     },
+    {
+      "label": "CNI install scope",
+      "type": "shell",
+      "command": "kubectl apply -f manifests/scope.yaml; kubectl wait --for=jsonpath='{.status.phase}'=Running pod $(kubectl get po -n weave -l name=weave-scope-app --output=jsonpath={.items..metadata.name}) -n weave; kubectl port-forward -n weave pod/$(kubectl get po -n weave -l name=weave-scope-app --output=jsonpath={.items..metadata.name}) 4040"
+    },
+    {
+      "label": "CNI install weave-net",
+      "type": "shell",
+      "command": "kubectl apply -f \"https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')\""
+    },
+    {
+      "label": "WGC ui run",
+      "type": "shell",
+      "command": "gitops ui run &"
+    }
   ]
 }
