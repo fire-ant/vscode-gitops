@@ -35,7 +35,7 @@ CMD [ "sleep", "infinity" ]
 
 # [Optional] Uncomment this section to install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends make python
+    && apt-get -y install --no-install-recommends make python xdg-utils
 
 ARG INSTALL_DIR=/usr/local/bin
 # install flux-vscode, also configured for install in devcontainer.json
