@@ -2,3 +2,4 @@ cluster-api/*
 .devcontainer/.env
 provider/infra/*
 provider/cluster-api/*
+provider/cluster-api
