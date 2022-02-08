@@ -11,3 +11,23 @@ volumes:
     nodeFilters:
       - server:0
       - agent:*
+  # - volume: manifests/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml
+  #   nodeFilters:
+  #     - server:0
+  #     - agent:*
+ports:
+  - port: 9001:9001 # wgc ui
+    nodeFilters:
+      - server:0
+      - agent:*
+  - port: 4040:4040 # scope
+    nodeFilters:
+      - server:0
+      - agent:*
+options:
+  k3s: # options passed on to K3s itself
+    extraArgs: # additional arguments passed to the `k3s server|agent` command; same as `--k3s-arg`
+      - arg: --flannel-backend=none
+        nodeFilters:
+          - server:*
+  
