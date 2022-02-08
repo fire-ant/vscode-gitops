@@ -97,23 +97,23 @@
       "type": "shell",
       "command": "clusterctl init --infrastructure aws"
     },
-    {
-      "label": "k3d up CAPI/CAPD",
-      "type": "shell",
-      "command": "kubectl get no; kubectl get po --all-namespaces",
-      "runOptions": {
-        "runOn": "folderOpen"
-      },
-      "dependsOn": [
-        "k3d delete cluster",
-        "k3d create cluster",
-        "k3d install calico",
-        "k3d install cert-manager",
-        "clusterctl setup CAPD",
-        "clusterctl init CAPD"
-      ],
-      "dependsOrder": "sequence"
-    },
+    // {
+    //   "label": "k3d up CAPI/CAPD",
+    //   "type": "shell",
+    //   "command": "kubectl get no; kubectl get po --all-namespaces",
+    //   "runOptions": {
+    //     "runOn": "folderOpen"
+    //   },
+    //   "dependsOn": [
+    //     "k3d delete cluster",
+    //     "k3d create cluster",
+    //     "k3d install calico",
+    //     "k3d install cert-manager",
+    //     "clusterctl setup CAPD",
+    //     "clusterctl init CAPD"
+    //   ],
+    //   "dependsOrder": "sequence"
+    // },
     {
       "label": "CNI install scope",
       "type": "shell",
