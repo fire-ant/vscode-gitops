@@ -16,7 +16,7 @@
     {
       "label": "k3d create cluster",
       "type": "shell",
-      "command": "./k3d/cluster_up.sh",
+      "command": "./k3d/cluster_up.sh ${CNI}",
     },
     {
       "label": "k3d delete cluster",

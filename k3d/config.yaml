@@ -11,10 +11,6 @@ volumes:
     nodeFilters:
       - server:0
       - agent:*
-  # - volume: manifests/calico.yaml:/var/lib/rancher/k3s/server/manifests/calico.yaml
-  #   nodeFilters:
-  #     - server:0
-  #     - agent:*
 ports:
   - port: 9001:9001 # wgc ui
     nodeFilters:
