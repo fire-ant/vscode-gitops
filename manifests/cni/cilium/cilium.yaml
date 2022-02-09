@@ -13,6 +13,42 @@ metadata:
   name: cilium-operator
   namespace: kube-system
 ---
+# Source: cilium/templates/hubble-relay-serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hubble-relay
+  namespace: kube-system
+---
+# Source: cilium/templates/hubble-ui-serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hubble-ui
+  namespace: kube-system
+---
+# Source: cilium/templates/hubble-relay-client-tls-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hubble-relay-client-certs
+  namespace: kube-system
+type: kubernetes.io/tls
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURVekNDQWp1Z0F3SUJBZ0lSQU5VdFNBcktYc05ROUZVUFcrbDNQMHN3RFFZSktvWklodmNOQVFFTEJRQXcKSGpFY01Cb0dBMVVFQXhNVGFIVmlZbXhsTFdOaExtTnBiR2wxYlM1cGJ6QWVGdzB5TWpBeU1Ea3hNalExTVRsYQpGdzB5TlRBeU1EZ3hNalExTVRsYU1DTXhJVEFmQmdOVkJBTU1HQ291YUhWaVlteGxMWEpsYkdGNUxtTnBiR2wxCmJTNXBiekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNb1RMY1VxRkF2VFo5bWoKVnhzRkJsdmVmZ0ZyR0hZd1E4cklJU21FT29RYWEzN3NJUE1mSjc0aXBUazU4cWN4bHhCc202SWdRNVpRZjdzcQpmTEdrb0xFVExPRTcvWmkzbmNZMmtFUWJMeEZKYno3WEVSeUFOYWkybnh2dTZtTTgwR3pIbm5pYjNpTHNWRE4zCjJDWHZ0ZUJrN2hsVEhBZ09Va0JCTlVXeVIzNC9nRXFWcDNHSnZpekc5eUhPTHZmb2lGa2RwKzIxZ2hQRzZWbEQKVWRQYW1hTDVSTUkxK0lSMGNrakZjM1dtNGZITFdMQnptTThVVEJHcTBFNGVZSDcrTzMvN1VmUmMzYTRlR0ZodgpZb1VHR2wyRFZNSjRtTVpobE1rdVVQVkRJMU5oVWw0MjZFbjhaMit0bVdGL0ZiaUl0Z1JvUXpKNDd4WHJ1VXk5CnArRGxxYmtDQXdFQUFhT0JoakNCZ3pBT0JnTlZIUThCQWY4RUJBTUNCYUF3SFFZRFZSMGxCQll3RkFZSUt3WUIKQlFVSEF3RUdDQ3NHQVFVRkJ3TUNNQXdHQTFVZEV3RUIvd1FDTUFBd0h3WURWUjBqQkJnd0ZvQVVVejdCQWlxdwpRemJUTUlYT0hBUlZiNnIxS0t3d0l3WURWUjBSQkJ3d0dvSVlLaTVvZFdKaWJHVXRjbVZzWVhrdVkybHNhWFZ0CkxtbHZNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNTYjRKdzNoc1ErcTFOQWs5aGFGcGswMnVpVVVxaG5ZN1IKNkpPdk8xSXVTK1RzbktlbU40dHo0UW4yeDU0U21wS3QrRlAwRUd5MjNzLzVTQXF5V2VGVVNDLzFkY01lS2VBeAo0blRKd295aVlnVjFDUUhhTXNOVmpRcDZwNE1SUlJLUkhMbnRSb0ViUWpCTVhQWEtPV1o2ZTdXYlZQaHlPUFpmClB4dkpCMU9LNGluV0dLUjFCK1RpeXp6aS8xaDZJYWxyT3lLejVIbnhyRUgyYjBRSWwwaVJrVm9EU2VRNm4zQ3AKQktGTFdVOVdFS2pUazh6ZVMrellURklvNTZsREE1Z3BKR3krQWJpSmVyL1dOZk1VdkZwc3FKUlR4dVRwenRiLwp1VnRtTzNNZ1h4QUNoMkRtL1RaR2FxeHBLMWRTVkt4RENYZys3YkpjSE9Vb3BPdEJrVW00Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBeWhNdHhTb1VDOU5uMmFOWEd3VUdXOTUrQVdzWWRqQkR5c2doS1lRNmhCcHJmdXdnCjh4OG52aUtsT1RueXB6R1hFR3lib2lCRGxsQi91eXA4c2FTZ3NSTXM0VHY5bUxlZHhqYVFSQnN2RVVsdlB0Y1IKSElBMXFMYWZHKzdxWXp6UWJNZWVlSnZlSXV4VU0zZllKZSsxNEdUdUdWTWNDQTVTUUVFMVJiSkhmaitBU3BXbgpjWW0rTE1iM0ljNHU5K2lJV1IybjdiV0NFOGJwV1VOUjA5cVpvdmxFd2pYNGhIUnlTTVZ6ZGFiaDhjdFlzSE9ZCnp4Uk1FYXJRVGg1Z2Z2NDdmL3RSOUZ6ZHJoNFlXRzlpaFFZYVhZTlV3bmlZeG1HVXlTNVE5VU1qVTJGU1hqYm8KU2Z4bmI2MlpZWDhWdUlpMkJHaERNbmp2RmV1NVRMMm40T1dwdVFJREFRQUJBb0lCQVFDUkcwYVJ2NDZYazE2TwpuVW1PZ0lRNWNrSy9sL3ovMmRiRWhnT3lRVjZYd0RVUzlsTU80bjl5ZklSeTNKYlAwcjlzcnVEdmdnV21xZldmCkhIcGdRaHlXSzNQZDVXdE13QVhPOFIyVm1vT3BBVGVlUTJmcE5IUFR6QmZqUWlRVDBQYkdObTRvbzV6WExTZWwKc2RpSUhXTllXSUhWczZWOGIzUkc2Y3hzV1FJWHVCREc0bjUya0xrRG5HbFg4dUxCTXExZkJUMk1LWmhucXVkMwphZW5kd2pTNHRJRi9TMjVBaW1xWUxaZ0ZJU3I5NWc2TTNqdHI3WEpJMXdNUjlWNkkxb2hoN25iMTI1elEyN2RjClQ2VGMwc3l3cVRYNm1LT1FEckR1azhxR3hYUmNmYVo2N3o0T3JPQzVWOWVlWjYrTEdjdHdHV3ViWWJDSTJibXAKTUVwdGVkRUJBb0dCQU5pTVlvSEJTaElsK2pNRWxGRVFtM1k3cXlkY0phRVE0SnhKY2owUEFCRGs0Y0tkUXpmVQpjZWRSQ09xaFVuZWRsRmFBYXBCN2xod1N5Skdzbi9sN2MrcytlbWJjR2JyTm1MdEgzUkJQSmdJckQ2MkVSMzZBCk04ZXcxWjF4Ukc3VXU4ejg2bXlXUUJuVmJNWWpJMUlrUUZNc1ZJZmhWaU9MSUx0TFNuTHdSSEhaQW9HQkFPN2oKdytXait5ZTY1WkR0K3dkSWdjdU94UzJJdWlNa0V6Qm9yYXEyUTR1KzZ0eitvWXp6UTJxaTFQUFRTTWR3MXF4dworSUtyc0RNS1U4K09pS29lRUdzZFpUYmJteDdaVy80NCtsM0REaFJRNTIzdVNMTUxzZDRQYW5wTzR3UVpySVJGCnlwMWRHNkNLaTZ1K2hkQkNySDhPSHlycmZodHV6RyszK0Z6d2tDcmhBb0dCQUllRUN4MXlqZDBmb1IwT1Q1Y1AKa29xQ090RE43TXFJR2xnVDZvYmxmVUFWVEdjVExYNmgxNHBQL3dsK1hYSjN6ZDM0VFRnUDcxZXdOWTVjZmx5TgpjblNVUzl0VkFGRVQydkhRdmpvM25leWJjQnRCZmRCZmdJZ0dWUmhMU3UwaytrWUZQTnNwaUFIaXUwaWZzcm56Cjc4RmRLNlZCVWp1NkZJakJURnp6bVpHNUFvR0FXMTVPRE1UOVNLTFpMdWQydmNCanRHRjAxUWVZZWR4UVlwR0cKNnVZdlM0SEgvcUo5VTVXdlVWZmFMeSsraEZtS0lnWkxabDhZVTAwOTVRTFZEb3ZWSjhMa2RXamxHWlYwOC9VQwovVjJmUXZIMnNqc1RIemYzM2NEenJyZ0JhQTRSeDcyUjAwSkxVTW5zeGRGbkNOS1hlemtCZnI3M1NyTEVDbTdJCjFYTkZFTUVDZ1lCeTVLc2hjV3M2SkdPcE5IbEF3L2k0N2ZMS21RN05GVnY5MjQyNTFaQmdBRzV6aWVhdGcvWjkKZHQyWFg2eW8wdHZwdW53OUkwaDBKbkpEKys5ZGUwTUcxM3IxU2krVis5d3hoSUswWU55SUFEb1pndVJYaWpwSQpIdDZ3ajRVdmpDaDYxTFRNeWNQVGZuQnoyWVV2YkNGRjZ5Y25CZHpoVGhjR1hVSDhtb21IK2c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+---
+# Source: cilium/templates/hubble-server-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hubble-server-certs
+  namespace: kube-system
+type: kubernetes.io/tls
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURZRENDQWtpZ0F3SUJBZ0lRQVFURS9rR0JQVWhxS1RUdVNXVi84akFOQmdrcWhraUc5dzBCQVFzRkFEQWUKTVJ3d0dnWURWUVFERXhOb2RXSmliR1V0WTJFdVkybHNhWFZ0TG1sdk1CNFhEVEl5TURJd09URXlORFV4T0ZvWApEVEkxTURJd09ERXlORFV4T0Zvd0tqRW9NQ1lHQTFVRUF3d2ZLaTVrWldaaGRXeDBMbWgxWW1Kc1pTMW5jbkJqCkxtTnBiR2wxYlM1cGJ6Q0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCQUxPMW1CM0gKV1cvaUl3UlhxL3pPVzFoRkhPWW1vbjkyVTZyNDZ2YUw5VXJaVW1qOXVEbzdjWVBHOGdzNm1VSmsySzF4NWJmWgpNTDhFQytVeDROdm5sME9PelJZZU1lb3UwaC8wemRCZE1xdnpGYWxRbW1FZnM2ZDlTWkhqbzNsVld1OFBiS0JHCmFra3BOdnAwR2g3M2V5L28vdkpHQTFUejh2Y1FxZU5MVXRqZkVGc0JTbDdFREpkK2ZPTUhDYnpmaHlFbDNScEgKdnJBb2owUU04QUxrbDJIdzVtT2cxdG1iUEFramI3RDJ1ZVBVMG14aW53ZGJ5d0dMdjNjQXREL0w3a3VlbjUrYwpRSXRsNGo4ZUQ3T2owcjYwWXFIK2ZzTDRJTzJ2eU5JUmJDRXZPc1drOXlDemE1aVc5VWhIaExBdUhScGdaWXVPClZCR2tKc3FKcFY0TXQ0RUNBd0VBQWFPQmpUQ0JpakFPQmdOVkhROEJBZjhFQkFNQ0JhQXdIUVlEVlIwbEJCWXcKRkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQndNQ01Bd0dBMVVkRXdFQi93UUNNQUF3SHdZRFZSMGpCQmd3Rm9BVQpVejdCQWlxd1F6YlRNSVhPSEFSVmI2cjFLS3d3S2dZRFZSMFJCQ013SVlJZktpNWtaV1poZFd4MExtaDFZbUpzClpTMW5jbkJqTG1OcGJHbDFiUzVwYnpBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQVB1Wm1LMmFKNXVXUG93R0UKV2hjMGlDR3owUFlwVDVGckFqQXNhQytEaFFWNGlyQjVTNFBoNGZISEJoZHhDRTVHUDcxU0hYckIybWZFTW9TOQpTR25LZEN5ZlNwM08yR1VJQ2c1c05yVUZGNS9Lam52U1o1dmsvTWhJbFR5WER3OXV2RktlSXhxenJ2WmtJQWROCnZWSEkxYzk3Q3JzK3J1ZFpES2NuSGxJNmVid1BCZW54R1JVVjgzUWd2RFlINm81OE1HeCt1ZFljbGtwNmo1cTMKaXQrdnE4ZDdWcDZCZHA4aGJjY3Vja1VmSzZTaEV6Slp2ZUdmbGVMeEZvRDJFOFlCNElQMFJhbnJMQlExbWNJOQpMMVlQVHVPVFdKb3I3WE16R2UyNkxCNEk0dXVvYWh6Tkl0a1ozc0ljYlZWb0cwRHJTSEJmNDhmM0NwWVFUOWF5CktkRUFtdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBczdXWUhjZFpiK0lqQkZlci9NNWJXRVVjNWlhaWYzWlRxdmpxOW92MVN0bFNhUDI0Ck9qdHhnOGJ5Q3pxWlFtVFlyWEhsdDlrd3Z3UUw1VEhnMitlWFE0N05GaDR4Nmk3U0gvVE4wRjB5cS9NVnFWQ2EKWVIrenAzMUprZU9qZVZWYTd3OXNvRVpxU1NrMituUWFIdmQ3TCtqKzhrWURWUFB5OXhDcDQwdFMyTjhRV3dGSwpYc1FNbDM1ODR3Y0p2TitISVNYZEdrZStzQ2lQUkF6d0F1U1hZZkRtWTZEVzJaczhDU052c1BhNTQ5VFNiR0tmCkIxdkxBWXUvZHdDMFA4dnVTNTZmbjV4QWkyWGlQeDRQczZQU3ZyUmlvZjUrd3ZnZzdhL0kwaEZzSVM4NnhhVDMKSUxOcm1KYjFTRWVFc0M0ZEdtQmxpNDVVRWFRbXlvbWxYZ3kzZ1FJREFRQUJBb0lCQVFDUTRGc0wxc1J4Z0ZzKwppdmRxVFdveWxUVWhEaEIrdFlQcUY5WkVnTHgxWlJJYzlqNXBJN2IxeDVNbUhrMmp5dTBybHVEZEFFbGVGUU1KCitOWVFNbm90eXBmbnR0d0NzVkJRMXVoOWpFVG5mb2IrQXE4U2taNGg3czA2d2N2dWF6TnQrbjlXRHE1czRMOGoKMWltZ3dWOGNWcmdCMVJPbWp5eFdwYVp3U1M4M0NmT215SmV2cy9zWEtuRHRSTGRzSmIzelp2bXlmcTAybnJ1YQpZelVPWlIzaWJiUTZmeVhQQmNmZUhKcFpiWE1oRUJaYlA4dUR1Skh2UzRWanBmNThaQUJBRVBlQVBvWTZjS1RNClpGa3YweEZUQ3VjS1QxRExCNTcxV1JwejVEekhpWktkN1hnRlkwSE12elhReCtBcFgwc280TVI4bXNVOHc2K04KbGFabHRjd3BBb0dCQU5rMGlmTXF0dkJ2QTBvYVhLU051NkFGSzJDNEgxM0xpQW9vcmVrV2RGbnJZd0F1RHBEQQpMMW9MbFNpeUZzdHk2QlJGa0xoMVV6aEYzMEdXODFwbFpxRTVYbmlQdGJ5UFNvMklMVnVZOXhKbzU4bnZVQkpUCk5MYnFVM2N1MjRZbksrTENXUHlVRysrd1RiWUc0VkgzYkJMZSt3OHFUems1SGJ3eEVvNzNzc29EQW9HQkFOUE8KbVdIRHlTVWl5UTJoaVVKaGEzZmtsMm1ISUVUTmxTNURTd2N2NmdXcWhKcElDNERjOFkxcENJc0R3b1J4QVkrdwpGQ1NPQUhHL0cyRWdlQ3ZXOUFEdVQ3ekVzTW14K21mUFhYSDd4NDlia0dndUtLMHR2UWNwdWRYYzIzc0g0M05yCnNkR2UvM2d2cE0xb3FHa0t1WXhlTkk2dm9QUHpFRUY4T1BEaFlrTXJBb0dBY3diNjQzZEVpSklSNk9XTEdHNGkKNWZ5MjJ6TEhFYkllNmxwZXQyajMxMExzSEFWSUcycGI2VkRtL2pWS0V4WllSNXdMcDFRaTdWTTdoNDI4ZEt2cwpyUWNudTZ0SHNJTW1GVXYvMFZseHh5TWRWWGpTSzlJNndYL1pFZTRUdmJqeTZkVElzWUp5UlA1V09VYnRmcTRNCll2WUplUitMOHg4SFcwbVZyWGNLRFNjQ2dZRUFwcGZhUm00ekdIVnF3OERwYi8rbUFyQVdjNWNueDFZWDMwSm8Ka2VlYTN3Z0dzajYyWlkzaXBBSVlDUmRVK016Vm1JbTYzaUdlc2RqSmxUUnZzTE9xU2MwbmhHY0VVakFkcjJjSApyYTZHZ1BoWTljaFFrQjNvanVpLzFUbVluQVZSWGlnM3ZaT2NocENheEVGc0xPcVZsSlZJSzI1eVgwNHYzQUh6CjIycTYyZThDZ1lFQTFkR2Fkdy9lMGJJTTZ1eU1ENWFqMG5peDNvOWZIK3JXakJ6aS92UTJzTWJqM2JxbnY0T2cKYTAvc3pYVGVxMGFLZEhVYlpydnM5TlpMcDMxQlRaTStxakkrQ0tiaXYrMGxFUzZLdnRNS0JQMC90TGdVbk1xUwoxeEZCVXgvRWRpRWwyeCtCRjV5aHZrR2tRWXFIcm1xUDdHK3dQMjFZUC8rSlZNVXNRMDBpQVJnPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+---
 # Source: cilium/templates/cilium-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -117,7 +153,7 @@ data:
   wait-bpf-mount: "false"
 
   masquerade: "true"
-  enable-bpf-masquerade: "true"
+  enable-bpf-masquerade: "false"
 
   enable-xt-socket-fallback: "true"
   install-iptables-rules: "true"
@@ -125,7 +161,7 @@ data:
   auto-direct-node-routes: "false"
   enable-bandwidth-manager: "false"
   enable-local-redirect-policy: "false"
-  kube-proxy-replacement:  "probe"
+  kube-proxy-replacement:  "strict"
   kube-proxy-replacement-healthz-bind-address: ""
   enable-health-check-nodeport: "true"
   node-port-bind-protection: "true"
@@ -146,11 +182,122 @@ data:
   hubble-tls-cert-file: /var/lib/cilium/tls/hubble/server.crt
   hubble-tls-key-file: /var/lib/cilium/tls/hubble/server.key
   hubble-tls-client-ca-files: /var/lib/cilium/tls/hubble/client-ca.crt
-  ipam: "cluster-pool"
-  cluster-pool-ipv4-cidr: "10.0.0.0/8"
-  cluster-pool-ipv4-mask-size: "24"
+  ipam: "kubernetes"
   disable-cnp-status-updates: "true"
-  cgroup-root: "/run/cilium/cgroupv2"
+---
+# Source: cilium/templates/hubble-ca-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hubble-ca-cert
+  namespace: kube-system
+data:
+  ca.crt: |-
+    -----BEGIN CERTIFICATE-----
+    MIIDJzCCAg+gAwIBAgIQEZWshs/FopuTcZZIE2JzqTANBgkqhkiG9w0BAQsFADAe
+    MRwwGgYDVQQDExNodWJibGUtY2EuY2lsaXVtLmlvMB4XDTIyMDIwOTEyNDUxOFoX
+    DTI1MDIwODEyNDUxOFowHjEcMBoGA1UEAxMTaHViYmxlLWNhLmNpbGl1bS5pbzCC
+    ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMNxVtOyafOrIaMvcZ+M2fiV
+    eIhno1yJwm5I1iIjsu2f7QmyHTvYgHg5tM9g15Wmv/v/6r0dZcAApf5HsL8FyOyv
+    4Lpeskd5eLJXbDuohM40KMdceEHu83l5F9VxsSyxD/La2Cb+yyqIMJBWidzQz34p
+    YlS54EnG8fIoV6St/aIY8AGavbmdzBK09DUDHYLKU8un4/X91QWNx7ZfFDBSEguK
+    3N9PGncX+yYnlcA+WQK5vvtfqV2B3bLuMOk18k7ZcH7L/eM9CLZlEuyth2csUEr2
+    XHe1jMuMv8UlOaLyFToPZzHNW6SvBiDXeyxGJq8I0hKHahqZwof0nTRt0kumw0kC
+    AwEAAaNhMF8wDgYDVR0PAQH/BAQDAgKkMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggr
+    BgEFBQcDAjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBRTPsECKrBDNtMwhc4c
+    BFVvqvUorDANBgkqhkiG9w0BAQsFAAOCAQEAZtSmYPSg8pV6IAIOegPCkrfyXxG0
+    TmZ7iCXU/ZTN/756dOc/V4wKODAF7lAIWixjHBdyeIUtGftpgrUBM7T+pIu4fa04
+    tyZQWPfaxlBJpl3GGPX941BWZuwxZrxT7ThIpzfNem2BfDKLW8QmExW1rQZk1Z3Z
+    1U+z3dPWma6pJj0pW+wDVflQcMIjzCKMjdwQgOmJef/utB9KLIxXH/pglKXwF1AB
+    NDsXioIX2kcyaJI0hG/8pZ8Z2BTlmA99G0yTrb+0YHKgtF2EwVRzFry8r8nsd4lH
+    JlYdlvFGVHFsBwHaRnfCorcLr+Ex5KZLDXvlZzk1AxoFEbMbCLWS1CpqdA==
+    -----END CERTIFICATE-----
+---
+# Source: cilium/templates/hubble-relay-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hubble-relay-config
+  namespace: kube-system
+data:
+  config.yaml: |
+    peer-service: unix:///var/run/cilium/hubble.sock
+    listen-address: :4245
+    dial-timeout: 
+    retry-timeout: 
+    sort-buffer-len-max: 
+    sort-buffer-drain-timeout: 
+    tls-client-cert-file: /var/lib/hubble-relay/tls/client.crt
+    tls-client-key-file: /var/lib/hubble-relay/tls/client.key
+    tls-hubble-server-ca-files: /var/lib/hubble-relay/tls/hubble-server-ca.crt
+    disable-server-tls: true
+---
+# Source: cilium/templates/hubble-ui-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hubble-ui-envoy
+  namespace: kube-system
+data:
+  envoy.yaml: |
+    static_resources:
+      listeners:
+        - name: listener_hubble_ui
+          address:
+            socket_address:
+              address: 0.0.0.0
+              port_value: 8081
+          filter_chains:
+            - filters:
+                - name: envoy.filters.network.http_connection_manager
+                  config:
+                    codec_type: auto
+                    stat_prefix: ingress_http
+                    route_config:
+                      name: local_route
+                      virtual_hosts:
+                        - name: local_service
+                          domains: ['*']
+                          routes:
+                            - match:
+                                prefix: '/api/'
+                              route:
+                                cluster: backend
+                                max_grpc_timeout: 0s
+                                prefix_rewrite: '/'
+                            - match:
+                                prefix: '/'
+                              route:
+                                cluster: frontend
+                          cors:
+                            allow_origin_string_match:
+                              - prefix: '*'
+                            allow_methods: GET, PUT, DELETE, POST, OPTIONS
+                            allow_headers: keep-alive,user-agent,cache-control,content-type,content-transfer-encoding,x-accept-content-transfer-encoding,x-accept-response-streaming,x-user-agent,x-grpc-web,grpc-timeout
+                            max_age: '1728000'
+                            expose_headers: grpc-status,grpc-message
+                    http_filters:
+                      - name: envoy.filters.http.grpc_web
+                      - name: envoy.filters.http.cors
+                      - name: envoy.filters.http.router
+      clusters:
+        - name: frontend
+          connect_timeout: 0.25s
+          type: strict_dns
+          lb_policy: round_robin
+          hosts:
+            - socket_address:
+                address: 127.0.0.1
+                port_value: 8080
+        - name: backend
+          connect_timeout: 0.25s
+          type: logical_dns
+          lb_policy: round_robin
+          http2_protocol_options: {}
+          hosts:
+            - socket_address:
+                address: 127.0.0.1
+                port_value: 8090
 ---
 # Source: cilium/templates/cilium-agent-clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -338,6 +485,70 @@ rules:
   - get
   - update
 ---
+# Source: cilium/templates/hubble-relay-clusterrole.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hubble-relay
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - componentstatuses
+      - endpoints
+      - namespaces
+      - nodes
+      - pods
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+---
+# Source: cilium/templates/hubble-ui-clusterrole.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hubble-ui
+rules:
+  - apiGroups:
+      - networking.k8s.io
+    resources:
+      - networkpolicies
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - componentstatuses
+      - endpoints
+      - namespaces
+      - nodes
+      - pods
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apiextensions.k8s.io
+    resources:
+      - customresourcedefinitions
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - cilium.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+---
 # Source: cilium/templates/cilium-agent-clusterrolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -365,6 +576,68 @@ subjects:
 - kind: ServiceAccount
   name: cilium-operator
   namespace: kube-system
+---
+# Source: cilium/templates/hubble-relay-clusterrolebinding.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hubble-relay
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: hubble-relay
+subjects:
+- kind: ServiceAccount
+  namespace: kube-system
+  name: hubble-relay
+---
+# Source: cilium/templates/hubble-ui-clusterrolebinding.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: hubble-ui
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: hubble-ui
+subjects:
+- kind: ServiceAccount
+  namespace: kube-system
+  name: hubble-ui
+---
+# Source: cilium/templates/hubble-relay-service.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: hubble-relay
+  namespace: kube-system
+  labels:
+    k8s-app: hubble-relay
+spec:
+  type: ClusterIP
+  selector:
+    k8s-app: hubble-relay
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4245
+---
+# Source: cilium/templates/hubble-ui-service.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: hubble-ui
+  labels:
+    k8s-app: hubble-ui
+  namespace: kube-system
+spec:
+  selector:
+    k8s-app: hubble-ui
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8081
+  type: ClusterIP
 ---
 # Source: cilium/templates/cilium-agent-daemonset.yaml
 apiVersion: apps/v1
@@ -476,7 +749,7 @@ spec:
               key: custom-cni-conf
               name: cilium-config
               optional: true
-        image: "quay.io/cilium/cilium:v1.9.12@sha256:7d4ef9dc7e504ba1a55a01dd743260daced11ded02fc268965ef2c98eb8b8bde"
+        image: "quay.io/cilium/cilium:v1.9.6"
         imagePullPolicy: IfNotPresent
         lifecycle:
           postStart:
@@ -521,32 +794,6 @@ spec:
           readOnly: true
       hostNetwork: true
       initContainers:
-      # Required to mount cgroup2 filesystem on the underlying Kubernetes node.
-      # We use nsenter command with host's cgroup and mount namespaces enabled.
-      - name: mount-cgroup
-        env:
-          - name: CGROUP_ROOT
-            value: /run/cilium/cgroupv2
-          - name: BIN_PATH
-            value: /opt/cni/bin
-        command:
-          - sh
-          - -c
-          # The statically linked Go program binary is invoked to avoid any
-          # dependency on utilities like sh and mount that can be missing on certain
-          # distros installed on the underlying host. Copy the binary to the
-          # same directory where we install cilium cni plugin so that exec permissions
-          # are available.
-          - 'cp /usr/bin/cilium-mount /hostbin/cilium-mount && nsenter --cgroup=/hostproc/1/ns/cgroup --mount=/hostproc/1/ns/mnt "${BIN_PATH}/cilium-mount" $CGROUP_ROOT; rm /hostbin/cilium-mount'
-        image: "quay.io/cilium/cilium:v1.9.12@sha256:7d4ef9dc7e504ba1a55a01dd743260daced11ded02fc268965ef2c98eb8b8bde"
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - mountPath: /hostproc
-            name: hostproc
-          - mountPath: /hostbin
-            name: cni-path
-        securityContext:
-          privileged: true
       - command:
         - /init-container.sh
         env:
@@ -568,7 +815,7 @@ spec:
               key: wait-bpf-mount
               name: cilium-config
               optional: true
-        image: "quay.io/cilium/cilium:v1.9.12@sha256:7d4ef9dc7e504ba1a55a01dd743260daced11ded02fc268965ef2c98eb8b8bde"
+        image: "quay.io/cilium/cilium:v1.9.6"
         imagePullPolicy: IfNotPresent
         name: clean-cilium-state
         securityContext:
@@ -579,10 +826,6 @@ spec:
         volumeMounts:
         - mountPath: /sys/fs/bpf
           name: bpf-maps
-          mountPropagation: HostToContainer
-          # Required to mount cgroup filesystem from the host to cilium agent pod
-        - mountPath: /run/cilium/cgroupv2
-          name: cilium-cgroup
           mountPropagation: HostToContainer
         - mountPath: /var/run/cilium
           name: cilium-run
@@ -608,16 +851,6 @@ spec:
           path: /sys/fs/bpf
           type: DirectoryOrCreate
         name: bpf-maps
-      # To mount cgroup2 filesystem on the host
-      - hostPath:
-          path: /proc
-          type: Directory
-        name: hostproc
-      # To keep state between restarts / upgrades for cgroup2 filesystem
-      - hostPath:
-          path: /run/cilium/cgroupv2
-          type: DirectoryOrCreate
-        name: cilium-cgroup
       # To install cilium cni plugin in the host
       - hostPath:
           path:  /opt/cni/bin
@@ -678,7 +911,7 @@ spec:
   # We support HA mode only for Kubernetes version > 1.14
   # See docs on ServerCapabilities.LeasesResourceLock in file pkg/k8s/version/version.go
   # for more details.
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       io.cilium/app: operator
@@ -730,7 +963,7 @@ spec:
               key: debug
               name: cilium-config
               optional: true
-        image: "quay.io/cilium/operator-generic:v1.9.12@sha256:b89b16476cf6500d68763a70fb3d449e0309296bd00122cbe24f306c7e5e5180"
+        image: "quay.io/cilium/operator-generic:v1.9.6"
         imagePullPolicy: IfNotPresent
         name: cilium-operator
         livenessProbe:
@@ -758,3 +991,165 @@ spec:
       - configMap:
           name: cilium-config
         name: cilium-config-path
+---
+# Source: cilium/templates/hubble-relay-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hubble-relay
+  labels:
+    k8s-app: hubble-relay
+  namespace: kube-system
+spec:
+
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: hubble-relay
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+      labels:
+        k8s-app: hubble-relay
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: "k8s-app"
+                  operator: In
+                  values:
+                    - cilium
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: hubble-relay
+          image: "quay.io/cilium/hubble-relay:v1.9.6"
+          imagePullPolicy: IfNotPresent
+          command:
+            - hubble-relay
+          args:
+            - serve
+          ports:
+            - name: grpc
+              containerPort: 4245
+          readinessProbe:
+            tcpSocket:
+              port: grpc
+          livenessProbe:
+            tcpSocket:
+              port: grpc
+          volumeMounts:
+          - mountPath: /var/run/cilium
+            name: hubble-sock-dir
+            readOnly: true
+          - mountPath: /etc/hubble-relay
+            name: config
+            readOnly: true
+          - mountPath: /var/lib/hubble-relay/tls
+            name: tls
+            readOnly: true
+      restartPolicy: Always
+      serviceAccount: hubble-relay
+      serviceAccountName: hubble-relay
+      terminationGracePeriodSeconds: 0
+      volumes:
+      - configMap:
+          name: hubble-relay-config
+          items:
+          - key: config.yaml
+            path: config.yaml
+        name: config
+      - hostPath:
+          path: /var/run/cilium
+          type: Directory
+        name: hubble-sock-dir
+      - projected:
+          sources:
+          - secret:
+              name: hubble-relay-client-certs
+              items:
+                - key: tls.crt
+                  path: client.crt
+                - key: tls.key
+                  path: client.key
+          - configMap:
+              name: hubble-ca-cert
+              items:
+                - key: ca.crt
+                  path: hubble-server-ca.crt
+        name: tls
+---
+# Source: cilium/templates/hubble-ui-deployment.yaml
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: kube-system
+  labels:
+    k8s-app: hubble-ui
+  name: hubble-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: hubble-ui
+  template:
+    metadata:
+      annotations:
+      labels:
+        k8s-app: hubble-ui
+    spec:
+      securityContext:
+        runAsUser: 1001
+      serviceAccount: hubble-ui
+      serviceAccountName: hubble-ui
+      containers:
+        - name: frontend
+          image: "quay.io/cilium/hubble-ui:v0.7.3"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          resources:
+            {}
+        - name: backend
+          image: "quay.io/cilium/hubble-ui-backend:v0.7.3"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: EVENTS_SERVER_PORT
+              value: "8090"
+            - name: FLOWS_API_ADDR
+              value: "hubble-relay:80"
+          ports:
+            - containerPort: 8090
+              name: grpc
+          resources:
+            {}
+        - name: proxy
+          image: "docker.io/envoyproxy/envoy:v1.14.5"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8081
+              name: http
+          resources:
+            {}
+          command: ["envoy"]
+          args:
+            [
+              "-c",
+              "/etc/envoy.yaml",
+              "-l",
+              "info"
+            ]
+          volumeMounts:
+            - name: hubble-ui-envoy-yaml
+              mountPath: /etc/envoy.yaml
+              subPath: envoy.yaml
+      volumes:
+        - name: hubble-ui-envoy-yaml
+          configMap:
+            name: hubble-ui-envoy
