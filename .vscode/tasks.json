@@ -115,9 +115,14 @@
     //   "dependsOrder": "sequence"
     // },
     {
-      "label": "CNI install scope",
+      "label": "scope port-forward",
       "type": "shell",
-      "command": "kubectl apply -f manifests/scope.yaml; kubectl wait --for=jsonpath='{.status.phase}'=Running pod $(kubectl get po -n weave -l name=weave-scope-app --output=jsonpath={.items..metadata.name}) -n weave; kubectl port-forward -n weave pod/$(kubectl get po -n weave -l name=weave-scope-app --output=jsonpath={.items..metadata.name}) 4040"
+      "command": "kubectl wait --for=jsonpath='{.status.phase}'=Running pod $(kubectl get po -n weave -l name=weave-scope-app --output=jsonpath={.items..metadata.name}) -n weave; kubectl port-forward -n weave pod/$(kubectl get po -n weave -l name=weave-scope-app --output=jsonpath={.items..metadata.name}) 4040"
+    },
+    {
+      "label": "hubble port-forward",
+      "type": "shell",
+      "command": "kubectl port-forward -n kube-system svc/hubble-ui pod/$(kubectl get po -n weave -l name=weave-scope-app --output=jsonpath={.items..metadata.name}) 12000:80"
     },
     {
       "label": "CNI install weave-net",
